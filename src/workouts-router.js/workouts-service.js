@@ -12,7 +12,7 @@ const WorkoutsService = {
   insertWorkout(knex, newWorkout) {
     return knex
       .insert(newWorkout)
-      .into("bookmarks")
+      .into("workout_articles")
       .returning("*")
       .then(rows => {
         return rows[0];
