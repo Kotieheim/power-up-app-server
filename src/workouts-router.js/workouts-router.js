@@ -63,17 +63,17 @@ workoutsRouter
 workoutsRouter
   .route("/workouts/:workout_id")
   .all((req, res, next) => {
-    const { workout_id } = req.params;
-    WorkoutsService.getById(req.app.get("db"), workout_id)
+    const { id } = req.params;
+    WorkoutsService.getById(req.app.get("db"), id)
       .then(workout => {
         if (!workout) {
-          console.log(`Workout with id ${workout_id} not found.`);
+          console.log(`Workout with id ${id} not found.`);
           return res.status(404).json({
             error: { message: `Workout Not Found` }
           });
         }
         res.workout = workout;
-        console.log(workout);
+        console.log(id);
         next();
       })
       .catch(next);

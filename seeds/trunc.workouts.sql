@@ -1,4 +1,4 @@
 TRUNCATE
 workout_articles,
-workout_users
+weekdays
 RESTART IDENTITY CASCADE;

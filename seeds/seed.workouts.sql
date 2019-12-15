@@ -1,12 +1,5 @@
 BEGIN;
 
-INSERT INTO workout_users (first_name, last_name, user_name, password)
-VALUES 
-('dunder', 'mifflin', 'dunders', 'password'),
-('alex', 'taylor', 'lex', 'lex-password'),
-('ping', 'won in', 'wippy', 'ping-password'),
-('bilbo', 'baggins', 'precious', 'bilbo-password');
-
 INSERT INTO weekdays (weekday_name)
 VALUES 
 ('Sunday'),

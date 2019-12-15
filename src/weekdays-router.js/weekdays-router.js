@@ -19,14 +19,17 @@ weekdaysRouter.route("/weekdays").get((req, res, next) => {
 });
 
 weekdaysRouter.route("/weekdays/:weekday_id").all((req, res, next) => {
-  WeekdaysService.getById(req.app.get("db"), req.params.weekdays_id)
-    .then(weekday => {
-      if (!weekday) {
+  const { id } = req.params;
+  WeekdaysService.getById(req.app.get("db"), id)
+    .then(workout => {
+      if (!workout) {
+        console.log(`Weekday with id ${id} not found.`);
         return res.status(404).json({
-          error: { message: `That's not a weekday` }
+          error: { message: `weekday Not Found` }
         });
       }
       res.weekday = weekday;
+      console.log(id);
       next();
     })
     .catch(next);
