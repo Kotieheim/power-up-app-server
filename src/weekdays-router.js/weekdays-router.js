@@ -9,28 +9,29 @@ const sanitizeWeekday = weekday => ({
   id: weekday.id,
   weekday_name: weekday.weekday_name
 });
-
-weekdaysRouter.route("/weekdays").get((req, res, next) => {
+weekdaysRouter.route("/").get((req, res, next) => {
   WeekdaysService.getAllWeekdays(req.app.get("db"))
     .then(weekdays => {
-      res.json(weekdays.map(sanitizeWeekday));
+      let newWeekdays = weekdays.map(weekday => {
+        return { id: weekday.id.toString(), name: weekday.weekday_name };
+      });
+      return newWeekdays;
+    })
+    .then(weekdays => {
+      res.json(weekdays);
     })
     .catch(next);
 });
 
-weekdaysRouter.route("/weekdays/:weekday_id").all((req, res, next) => {
+weekdaysRouter.route("/:id").get((req, res, next) => {
   const { id } = req.params;
   WeekdaysService.getById(req.app.get("db"), id)
-    .then(workout => {
-      if (!workout) {
-        console.log(`Weekday with id ${id} not found.`);
-        return res.status(404).json({
-          error: { message: `weekday Not Found` }
-        });
+    .then(weekday => {
+      if (!weekday) {
+        res.status(400).send("not a valid weekday");
       }
-      res.weekday = weekday;
-      console.log(id);
-      next();
+      res.json({ id: weekday.id.toString(), name: weekday.weekday_name });
+      console.log(weekday);
     })
     .catch(next);
 });

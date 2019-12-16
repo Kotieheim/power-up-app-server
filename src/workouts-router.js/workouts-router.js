@@ -4,30 +4,34 @@ const WorkoutsService = require("./workouts-service");
 
 const workoutsRouter = express.Router();
 const bodyParser = express.json();
-const serializeWorkout = workout => ({
-  id: workout.id,
-  muscle: workout.muscle,
-  exercise: workout.exercise,
-  exercise_sets: workout.exercise_sets,
-  reps: workout.reps,
-  weight_amount: workout.weight_amount,
-  summary: workout.summary,
-  date_created: workout.date_created,
-  weekday: workout.weekday
-});
 workoutsRouter
-  .route("/workouts")
+  .route("/")
 
   .get((req, res, next) => {
     WorkoutsService.getAllWorkouts(req.app.get("db"))
       .then(workouts => {
-        console.log(workouts);
-        res.json(workouts.map(serializeWorkout));
+        let newWorkouts = workouts.map(workout => {
+          return {
+            id: workout.id.toString(),
+            muscle: workout.muscle,
+            exercise: workout.exercise,
+            exercise_sets: workout.exercise_sets,
+            reps: workout.reps,
+            weight_amount: workout.weight_amount,
+            summary: workout.summary,
+            date_created: workout.date_created,
+            weekday: workout.weekday.toString()
+          };
+        });
+        return newWorkouts;
+      })
+
+      .then(sanitizedWeekdays => {
+        res.json(sanitizedWeekdays);
+        console.log(sanitizedWeekdays);
       })
       .catch(next);
-  });
-workoutsRouter
-  .route("/workouts/addWorkout")
+  })
   .post(bodyParser, (req, res, next) => {
     const {
       muscle,
@@ -40,55 +44,68 @@ workoutsRouter
       weekday
     } = req.body;
     const newWorkout = {
-      muscle,
+      muscle: muscle,
+      weekday: weekday,
       exercise,
       exercise_sets,
       reps,
       weight_amount,
       summary,
-      date_created,
-      weekday
+      date_created
     };
-
-    WorkoutsService.insertWorkout(req.app.get("db"), newWorkout)
-      .then(workout => {
+    for (const [key, value] of Object.entries(newWorkout)) {
+      if (value == null) {
+        return res.status(400).json({
+          error: { message: `missing '${key}' in request body` }
+        });
+      }
+    }
+    WorkoutsService.insertWorkout(req.app.get("db"), newWorkout).then(
+      workout => {
         res
           .status(201)
-          .location(path.posix.join(req.originalUrl, `/${workout.id}`))
-          .json(serializeWorkout(workout));
-      })
-      .catch(next);
+          .location(`http://localhost:8080/workouts/${workout.id}`)
+          .json({
+            id: workout.id.toString(),
+            muscle: workout.muscle,
+            exercise: workout.exercise,
+            exercise_sets: workout.exercise_sets,
+            reps: workout.reps,
+            weight_amount: workout.weight_amount,
+            summary: workout.summary,
+            date_created: workout.date_created,
+            weekday: workout.weekday.toString()
+          });
+      }
+    );
   });
 
 workoutsRouter
-  .route("/workouts/:workout_id")
-  .all((req, res, next) => {
+  .route("/:id")
+  .get((req, res, next) => {
     const { id } = req.params;
-    WorkoutsService.getById(req.app.get("db"), id)
-      .then(workout => {
-        if (!workout) {
-          console.log(`Workout with id ${id} not found.`);
-          return res.status(404).json({
-            error: { message: `Workout Not Found` }
-          });
-        }
-        res.workout = workout;
-        console.log(id);
-        next();
-      })
-      .catch(next);
+    WorkoutsService.getById(req.app.get("db"), id).then(workout => {
+      if (!workout) {
+        return res.status(400).send("Workout does not exist");
+      }
+      res.json({
+        id: workout.id.toString(),
+        muscle: workout.muscle,
+        exercise: workout.exercise,
+        exercise_sets: workout.exercise_sets,
+        reps: workout.reps,
+        weight_amount: workout.weight_amount,
+        summary: workout.summary,
+        date_created: workout.date_created,
+        weekday: workout.weekday.toString()
+      });
+    });
   })
-  .get((req, res) => {
-    res.json(serializeWorkout(res.workout));
-  })
-  .delete((req, res, next) => {
+  .delete(bodyParser, (req, res) => {
     const { id } = req.params;
-    WorkoutsService.deleteWorkout(req.app.get("db"), id)
-      .then(numRowsAffected => {
-        console.log(`Exercise with id ${id} deleted.`);
-        res.status(204).end;
-      })
-      .catch(next);
+    WorkoutsService.deleteWorkout(req.app.get("db"), id).then(workout => {
+      res.status(204).send(`Workout with id:${id} deleted`);
+    });
   });
 
 module.exports = workoutsRouter;

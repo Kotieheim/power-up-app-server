@@ -14,8 +14,8 @@ app.use(morgan(morganOption));
 app.use(helmet());
 app.use(cors());
 
-app.use("/api", weekdaysRouter);
-app.use("/api", workoutsRouter);
+app.use("/api/weekdays", weekdaysRouter);
+app.use("/api/workouts", workoutsRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello, world!");
