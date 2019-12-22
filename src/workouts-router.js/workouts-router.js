@@ -101,11 +101,13 @@ workoutsRouter
       });
     });
   })
-  .delete(bodyParser, (req, res) => {
+  .delete(bodyParser, (req, res, next) => {
     const { id } = req.params;
-    WorkoutsService.deleteWorkout(req.app.get("db"), id).then(workout => {
-      res.status(204).send(`Workout with id:${id} deleted`);
-    });
+    WorkoutsService.deleteWorkout(req.app.get("db"), id)
+      .then(workout => {
+        res.status(204).send(`Workout with id:${id} deleted`);
+      })
+      .catch(next);
   });
 
 module.exports = workoutsRouter;
