@@ -7,107 +7,44 @@ function makeWorkoutsArray() {
       exercise_sets: "3",
       reps: "12",
       weight_amount: "105",
-      date_created: new Date(),
       summary:
-        " Occaecati voluptatibus commodi et. Delectus suscipit saepe est reiciendis. Cupiditate laborum voluptatem autem explicabo voluptate. Quae et distinctio sequi dolorem temporibus aliquid.",
+        "Occaecati voluptatibus commodi et. Delectus suscipit saepe est reiciendis. Cupiditate laborum voluptatem autem explicabo voluptate. Quae et distinctio sequi dolorem temporibus aliquid.",
+      date_created: "2019-12-22T19:40:06.929Z",
       weekday: "1"
     },
     {
       id: "2",
-      muscle: "Chest",
-      exercise: "Incline Bench",
-      exercise_sets: "2",
-      reps: "9",
-      weight_amount: "125",
-      date_created: new Date(),
+      muscle: "Back",
+      exercise: "Deadlift",
+      exercise_sets: "5",
+      reps: "5",
+      weight_amount: "365",
       summary:
-        " Occaecati voluptatibus commodi et. Delectus suscipit saepe est reiciendis. Cupiditate laborum voluptatem autem explicabo voluptate. Quae et distinctio sequi dolorem temporibus aliquid.",
+        "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus consequuntur deserunt commodi, nobis qui inventore corrupti iusto aliquid debitis unde non. Adipisci, pariatur. Molestiae, libero esse hic adipisci autem neque?",
+      date_created: "2019-12-22T19:40:06.929Z",
       weekday: "2"
     }
-    // {
-    //   id: "3",
-    //   muscle: "Chest",
-    //   exercise: "Bench fly",
-    //   exercise_sets: "4",
-    //   reps: "15",
-    //   weight_amount: "115",
-    //   date_created: new Date(),
-    //   summary:
-    //     " Occaecati voluptatibus commodi et. Delectus suscipit saepe est reiciendis. Cupiditate laborum voluptatem autem explicabo voluptate. Quae et distinctio sequi dolorem temporibus aliquid.",
-    //   weekday: "3"
-    // }
-    // {
-    //   id: "4",
-    //   muscle: "Chest",
-    //   exercise: "Dumbbell Press",
-    //   exercise_sets: "3",
-    //   reps: "10",
-    //   weight_amount: "205",
-    //   date_created: new Date(),
-    //   summary:
-    //     " Occaecati voluptatibus commodi et. Delectus suscipit saepe est reiciendis. Cupiditate laborum voluptatem autem explicabo voluptate. Quae et distinctio sequi dolorem temporibus aliquid.",
-    //   weekday: "4"
-    // },
-    // {
-    //   id: "5",
-    //   muscle: "Chest",
-    //   exercise: "Bench Press",
-    //   exercise_sets: "5",
-    //   reps: "6",
-    //   weight_amount: "225",
-    //   date_created: new Date(),
-    //   summary:
-    //     " Occaecati voluptatibus commodi et. Delectus suscipit saepe est reiciendis. Cupiditate laborum voluptatem autem explicabo voluptate. Quae et distinctio sequi dolorem temporibus aliquid.",
-    //   weekday: "5"
-    // },
-    // {
-    //   id: "6",
-    //   muscle: "Chest",
-    //   exercise: "Bench Press",
-    //   exercise_sets: "5",
-    //   reps: "5",
-    //   weight_amount: "175",
-    //   date_created: new Date(),
-    //   summary:
-    //     " Occaecati voluptatibus commodi et. Delectus suscipit saepe est reiciendis. Cupiditate laborum voluptatem autem explicabo voluptate. Quae et distinctio sequi dolorem temporibus aliquid.",
-    //   weekday: "6"
-    // },
-    // {
-    //   id: "7",
-    //   muscle: "Back",
-    //   exercise: "Deadlift",
-    //   exercise_sets: "6",
-    //   reps: "6",
-    //   weight_amount: "405",
-    //   date_created: new Date(),
-    //   summary:
-    //     " Occaecati voluptatibus commodi et. Delectus suscipit saepe est reiciendis. Cupiditate laborum voluptatem autem explicabo voluptate. Quae et distinctio sequi dolorem temporibus aliquid.",
-    //   weekday: "7"
-    // },
-    // {
-    //   id: "8",
-    //   muscle: "Back",
-    //   exercise: "Pullups",
-    //   exercise_sets: "3",
-    //   reps: "12",
-    //   weight_amount: "205",
-    //   date_created: new Date(),
-    //   summary:
-    //     " Occaecati voluptatibus commodi et. Delectus suscipit saepe est reiciendis. Cupiditate laborum voluptatem autem explicabo voluptate. Quae et distinctio sequi dolorem temporibus aliquid.",
-    //   weekday: "1"
-    // },
-    // {
-    //   id: "9",
-    //   muscle: "Back",
-    //   exercise: "Bent over rows",
-    //   exercise_sets: "4",
-    //   reps: "8",
-    //   weight_amount: "135",
-    //   date_created: new Date(),
-    //   summary:
-    //     " Occaecati voluptatibus commodi et. Delectus suscipit saepe est reiciendis. Cupiditate laborum voluptatem autem explicabo voluptate. Quae et distinctio sequi dolorem temporibus aliquid.",
-    //   weekday: "3"
-    // }
+  ];
+}
+
+function makeWeekdaysArray() {
+  return [
+    {
+      id: "1",
+      weekday_name: "Sunday"
+    },
+
+    { id: "2", weekday_name: "Monday" },
+
+    { id: "3", weekday_name: "Tuesday" },
+
+    { id: "4", weekday_name: "Wednesday" },
+
+    { id: "5", weekday_name: "Thursday" },
+
+    { id: "6", weekday_name: "Friday" },
+
+    { id: "7", weekday_name: "Saturday" }
   ];
 }
 
@@ -130,5 +67,6 @@ function makeMaliciousWorkout_article() {
 }
 
 module.exports = {
-  makeWorkoutsArray
+  makeWorkoutsArray,
+  makeWeekdaysArray
 };
