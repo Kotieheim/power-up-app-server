@@ -3,7 +3,7 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const helmet = require("helmet");
-const { NODE_ENV, CLIENT_ORIGIN } = require("./config");
+const { NODE_ENV } = require("./config");
 const workoutsRouter = require("./workouts-router.js/workouts-router");
 const weekdaysRouter = require("./weekdays-router.js/weekdays-router");
 const validateBearerToken = require("./validate-bearer-token");
@@ -13,11 +13,7 @@ const morganOption = NODE_ENV === "production" ? "tiny" : "common";
 console.log(process.env.API_TOKEN);
 app.use(morgan(morganOption));
 app.use(helmet());
-app.use(
-  cors({
-    origin: CLIENT_ORIGIN
-  })
-);
+app.use(cors());
 app.use(validateBearerToken);
 
 app.use(cors());
