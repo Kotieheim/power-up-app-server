@@ -18,7 +18,7 @@ app.use(
     origin: CLIENT_ORIGIN
   })
 );
-// app.use(validateBearerToken);
+app.use(validateBearerToken);
 
 app.use(cors());
 
