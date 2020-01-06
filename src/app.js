@@ -14,7 +14,7 @@ console.log(process.env.API_TOKEN);
 app.use(morgan(morganOption));
 app.use(helmet());
 app.use(cors());
-// app.use(validateBearerToken);
+app.use(validateBearerToken);
 
 app.use(cors());
 
