@@ -9,5 +9,5 @@ CREATE TABLE workout_articles (
     weight_amount TEXT NOT NULL,
     summary TEXT,
     date_created TIMESTAMP DEFAULT now() NOT NULL,
-    weekday INTEGER REFERENCES weekdays(id) ON DELETE CASCADE NOT NULL
+    weekday INTEGER
 );

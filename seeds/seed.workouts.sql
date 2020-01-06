@@ -1,15 +1,5 @@
 BEGIN;
 
-INSERT INTO weekdays (weekday_name)
-VALUES 
-('Sunday'),
-('Monday'),
-('Tuesday'),
-('Wednesday'),
-('Thursday'),
-('Friday'),
-('Saturday');
-
 
 
 INSERT INTO workout_articles (muscle, exercise, exercise_sets, reps, weight_amount, summary, weekday)
