@@ -28,7 +28,6 @@ workoutsRouter
 
       .then(sanitizedWeekdays => {
         res.json(sanitizedWeekdays);
-        console.log(sanitizedWeekdays);
       })
       .catch(next);
   })

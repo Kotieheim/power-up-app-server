@@ -1,5 +1,16 @@
 BEGIN;
 
+TRUNCATE
+    users,
+    workout_articles
+    RESTART IDENTITY CASCADE;
+
+
+INSERT INTO users (user_name, full_name, password)
+VALUES
+ ('dunder', 'Dunder Mifflin', '$2a$12$YjmjOhyRvJEcA4RL81Q6I.aWiJLZIRmGmgxnf93Wp2nxJbERmUT0K'),
+  ('b.deboop', 'Bodeep Deboop', '$2a$12$vxjat4kXdaWmLQGRqMiiFOi/k7uxId.gSmUF9CzpTJdLSwFAjDVAe'),
+  ('c.bloggs', 'Charlie Bloggs',  '$2a$12$97EiuapClpMKChYASbHoiuLca6RaIlESemCFesgcSqLDR.wK4fc0q');
 
 
 INSERT INTO workout_articles (muscle, exercise, exercise_sets, reps, weight_amount, summary, weekday)

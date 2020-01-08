@@ -8,5 +8,6 @@ module.exports = {
   TEST_DB_URL:
     process.env.TEST_DATABASE_URL ||
     "postgresql://dunder_mifflin:password@localhost/power-up-test",
-  CLIENT_ORIGIN: "http://localhost:3000"
+  CLIENT_ORIGIN: "http://localhost:3000",
+  JWT_SECRET: process.env.JWT_SECRET || "change-this-secret"
 };
