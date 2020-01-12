@@ -27,6 +27,11 @@ const WorkoutsService = {
     return knex("workout_articles")
       .where({ id })
       .update(newWorkoutFields);
+  },
+  getUserWorkouts(knex, userId) {
+    return knex("workout_articles")
+      .select("*")
+      .where("user_id", userId);
   }
 };
 module.exports = WorkoutsService;

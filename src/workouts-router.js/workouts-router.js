@@ -1,14 +1,16 @@
 const path = require("path");
 const express = require("express");
 const WorkoutsService = require("./workouts-service");
-
 const workoutsRouter = express.Router();
 const bodyParser = express.json();
+const { requireAuth } = require("../middleware/jwt-auth");
+
 workoutsRouter
   .route("/")
-
+  .all(requireAuth)
   .get((req, res, next) => {
-    WorkoutsService.getAllWorkouts(req.app.get("db"))
+    console.log(req.user);
+    WorkoutsService.getUserWorkouts(req.app.get("db"), req.user.id)
       .then(workouts => {
         let newWorkouts = workouts.map(workout => {
           return {
@@ -20,7 +22,8 @@ workoutsRouter
             weight_amount: workout.weight_amount,
             summary: workout.summary,
             date_created: workout.date_created,
-            weekday: workout.weekday.toString()
+            weekday: workout.weekday.toString(),
+            user_id: workout.user_id
           };
         });
         return newWorkouts;
@@ -50,8 +53,10 @@ workoutsRouter
       reps,
       weight_amount,
       summary,
-      date_created
+      date_created,
+      user_id: req.user.id
     };
+    console.log(newWorkout);
     for (const [key, value] of Object.entries(newWorkout)) {
       if (value == null) {
         return res.status(400).json({
